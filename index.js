@@ -2,6 +2,7 @@ const bundlPack = require('bundl-pack');
 const clone = require('./lib/clone.js');
 const discoverSourcePath = require('discover-source-path');
 const dropFileName = require('./lib/dropFileName.js');
+const FeatherNetServer = require('feathernet/server');
 const fs = require('fs');
 const Handlebars = require('handlebars');
 const nodeAsBrowser = require('node-as-browser');
@@ -191,6 +192,7 @@ function FeatherTestBrowser (config) {
         dirnameAvailable: true,
         exitProcessWhenFailing: true,
         helpers: [],
+        networkIntercept: false,
         nodeAsBrowser: {},
         stopAfterFirstFailure: false,
         timeout: 5000,
@@ -258,6 +260,11 @@ function FeatherTestBrowser (config) {
                     console.log('\nRun your test in any browser: ' + options.destDir + '/test.html');
 
                     nodeAsBrowser.init(options.nodeAsBrowser);
+
+                    if (options.networkIntercept) {
+                        let featherNet = new FeatherNetServer();
+                        featherNet.start();
+                    }
 
                     runInNodeUntilDone(options.specs, options, relativeToAsArray, callback);
                 });

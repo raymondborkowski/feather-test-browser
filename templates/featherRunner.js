@@ -6,11 +6,16 @@ if (!global.__dirname) {
     global.__dirname = '/';
 }
 
+var FeatherNetBrowser = require('feathernet/browser');
+var FeatherTestRunner = require("{{pathToFeatherRunner}}");
+
 // setup feather-test-runner
 var featherTestOptions = {{{options}}};
-
-var FeatherTestRunner = require("{{pathToFeatherRunner}}");
 global.FeatherTest = new FeatherTestRunner(featherTestOptions);
+if (featherTestOptions.networkIntercept) {
+    global.networkIntercept = new FeatherNetBrowser();
+    global.networkIntercept.install();
+}
 
 // load your plugins
 {{{plugins}}}

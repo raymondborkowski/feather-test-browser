@@ -95,26 +95,16 @@ $ npm test
 
 ---
 
-## Configuration and Options
-See [feather-test](https://github.com/seebigs/feather-test) for full documentation on assertions, matchers, and other options that are available in feather-test-browser.
+## Basic Configuration Options
+*`feather-test-browser` provides all of the same assertions, matchers, and other options that are available in [feather-test](https://github.com/seebigs/feather-test#configuration-options).*
 
-## ES6 with Babel
-If you need to run modern code in older browsers you can pass options into the bundler. See [bundl-pack](https://github.com/seebigs/bundl-pack) for more options.
-```js
-var FeatherTestBrowser = require('feather-test-browser');
-var babelProcessor = require('bundl-pack-babel');
 
-var myTests = new FeatherTestBrowser({
-    specs: './specs',
-    bundlPack: {
-        js: babelProcessor({
-            presets: ['es2015-ie'],
-        })
-    }
-});
-```
+## Additional Features
 
-## Additional Spec Methods
+### mockNetwork
+Set `networkIntercept: true` to intercept all network traffic with [feathernet](https://github.com/seebigs/feathernet) (Intercepts fetch, XHR, sendBeacon, and append script)
+
+View our [mockNetwork tutorial](https://github.com/seebigs/feathernet/wiki) on how to mock network responses in your tests.
 
 ### external.loadScript
 Load external scripts into your spec environment at runtime.
@@ -142,5 +132,21 @@ describe('try loading a script', function (expect, done) {
         expect(window.foo).toBe(2);
         done();
     });
+});
+```
+
+## ES6 with Babel
+If you need to run modern code in older browsers you can pass options into the bundler. See [bundl-pack](https://github.com/seebigs/bundl-pack) for more options.
+```js
+var FeatherTestBrowser = require('feather-test-browser');
+var babelProcessor = require('bundl-pack-babel');
+
+var myTests = new FeatherTestBrowser({
+    specs: './specs',
+    bundlPack: {
+        js: babelProcessor({
+            presets: ['es2015-ie'],
+        })
+    }
 });
 ```

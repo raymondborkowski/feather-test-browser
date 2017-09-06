@@ -21,6 +21,7 @@ var testSuite = new FeatherTestBrowser({
             presets: ['es2015'],
         })
     },
+    networkIntercept: true,
     nodeAsBrowser: {
         url: 'file://' + __dirname,
     }
